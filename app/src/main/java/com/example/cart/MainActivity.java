@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                         {
                             if(usersData.getPassword().equals(password))
                             {
+                                Prevalent.CurrentOnlineUser = usersData;
                                 Toast.makeText(MainActivity.this, "You are already logged in.", Toast.LENGTH_LONG).show();
                                 progressbar.dismiss();
 

@@ -147,9 +147,9 @@ public class LoginActivity extends AppCompatActivity {
                                        Paper.book().write(Prevalent.UserPasswordKey,password);
                                        Paper.book().write(Prevalent.DB,"Users");
                                    }
+                                   Prevalent.CurrentOnlineUser = usersData;
                                    Toast.makeText(LoginActivity.this, "Welcome User, Logged in successfully.", Toast.LENGTH_LONG).show();
                                    progressbar.dismiss();
-
                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                    startActivity(intent);
                                }

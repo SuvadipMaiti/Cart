@@ -1,4 +1,4 @@
-package com.example.cart.ui.gallery;
+package com.example.cart.ui.orders;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cart.R;
 
-public class GalleryFragment extends Fragment {
+public class OrdersFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private OrdersViewModel ordersViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        ordersViewModel =
+                ViewModelProviders.of(this).get(OrdersViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_orders, container, false);
+        final TextView textView = root.findViewById(R.id.text_orders);
+        ordersViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
