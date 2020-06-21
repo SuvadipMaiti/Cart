@@ -1,17 +1,20 @@
 package com.example.cart.Models;
 
 public class Users {
-    private String username,phone,password;
+    private String username,phone,password, name ,image, address;
 
     public Users()
     {
 
     }
 
-    public Users(String username, String phone, String password) {
+    public Users(String username, String phone, String password, String name, String image, String address) {
         this.username = username;
         this.phone = phone;
         this.password = password;
+        this.name = name;
+        this.image = image;
+        this.address = address;
     }
 
     public String getUsername() {
@@ -36,5 +39,29 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

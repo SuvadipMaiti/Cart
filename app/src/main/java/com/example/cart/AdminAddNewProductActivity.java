@@ -139,6 +139,7 @@ public class AdminAddNewProductActivity extends AppCompatActivity {
         filePath = StorageRef.child(imageUri.getLastPathSegment() + ProductRandomKey + ".jpg");
         final UploadTask uploadTask = filePath.putFile(imageUri);
 
+
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

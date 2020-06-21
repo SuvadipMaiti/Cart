@@ -29,7 +29,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -49,32 +48,47 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         productsRef = FirebaseDatabase.getInstance().getReference().child("Products");
         Paper.init(this);
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
 
-        final FloatingActionButton fab = findViewById(R.id.fab);
 
+
+        final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intentCart = new Intent(HomeActivity.this,CartActivity.class);
+                startActivity(intentCart);
             }
         });
+
+
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         TextView userProfileName = headerView.findViewById(R.id.user_profile_name);
         CircleImageView userProfileImage = headerView.findViewById(R.id.user_profile_image);
         if(Prevalent.CurrentOnlineUser != null) {
-            userProfileName.setText(Prevalent.CurrentOnlineUser.getUsername());
+            if(Prevalent.CurrentOnlineUser.getName() != null) {
+                userProfileName.setText(Prevalent.CurrentOnlineUser.getName());
+            }
+            else
+            {
+                userProfileName.setText(Prevalent.CurrentOnlineUser.getUsername());
+            }
+            Picasso.get().load(Prevalent.CurrentOnlineUser.getImage()).placeholder(R.drawable.ic_baseline_account_circle_24).into(userProfileImage);
         }
 
         recyclerView = findViewById(R.id.recycler_menu);
@@ -102,8 +116,9 @@ public class HomeActivity extends AppCompatActivity {
                 int menuId = destination.getId();
                 switch (menuId){
                     case R.id.nav_cart:
-                        Toast.makeText(HomeActivity.this, "open cart", Toast.LENGTH_SHORT).show();
                         fab.hide();
+                        Intent intentCart = new Intent(HomeActivity.this,CartActivity.class);
+                        startActivity(intentCart);
                         break;
                     case R.id.nav_orders:
                         Toast.makeText(HomeActivity.this, "open orders", Toast.LENGTH_SHORT).show();
@@ -150,12 +165,21 @@ public class HomeActivity extends AppCompatActivity {
         FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Products model)
+                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model)
                     {
                         holder.productName.setText(model.getPname());
                         holder.productDescription.setText(model.getDescription());
-                        holder.productPrice.setText("Price : " + model.getPrice() + "Rs");
+                        holder.productPrice.setText("Price : " + model.getPrice() + " Rs");
                         Picasso.get().load(model.getImage()).into(holder.productImage);
+
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(HomeActivity.this,ProductDetailsActivity.class);
+                                intent.putExtra("pid", model.getPid());
+                                startActivity(intent);
+                            }
+                        });
                     }
 
                     @NonNull

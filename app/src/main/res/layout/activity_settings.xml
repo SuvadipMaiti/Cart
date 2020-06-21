@@ -60,7 +60,7 @@
         android:layout_marginBottom="10dp"
         android:src="@drawable/ic_baseline_account_circle_24"
         android:layout_centerHorizontal="true"
-        app:civ_border_color="@color/white"
+        app:civ_border_color="@color/colorPrimaryDark"
         app:civ_border_width="2dp" />
 
     <TextView
@@ -85,7 +85,7 @@
         android:layout_marginRight="15dp"
         android:layout_below="@+id/profile_image_change_btn"
         android:textColor="@color/colorPrimaryDark"
-        android:hint="Phone Number ... "
+        android:hint="Phone Number for Order ... "
         android:textSize="15sp"
         android:textStyle="bold"
         android:textColorHint="@color/colorPrimaryDark"
